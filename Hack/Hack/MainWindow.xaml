@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:Hack"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+    <Viewbox Stretch="Uniform">
+        <Grid x:Name="theGrid">
+            <Button Content="test" Margin="115,0,0,89" />
+            <Button Content="test2" Margin="0,0,109.5,89" />
+        </Grid>
+    </Viewbox>
+
 </Window>
+ 
