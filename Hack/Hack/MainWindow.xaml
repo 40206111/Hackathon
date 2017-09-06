@@ -5,11 +5,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hack"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Song Data" Height="350" Width="525" Background="Black">
     <Viewbox Stretch="Uniform">
-        <Grid x:Name="theGrid">
-            <Button Content="test" Margin="115,0,0,89" />
-            <Button Content="test2" Margin="0,0,109.5,89" />
+        <Grid x:Name="theGrid" Margin="0,0,0.5,0" Width="183" Height="116" Background="White">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="101*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="52*"/>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="lblArtistName" Content="Artist Name" HorizontalAlignment="Left" Height="18" Margin="6,10,0,0" VerticalAlignment="Top" Width="37" FontSize="3" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.343"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.054"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <TextBox x:Name="txtArtistName" HorizontalAlignment="Left" Height="6" Margin="10,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="18" FontSize="3" Text="Artist" BorderThickness="0.5"/>
+            <Button x:Name="btnBorder" Content="Toggle Border" HorizontalAlignment="Left" Height="5" Margin="29,108,0,0" VerticalAlignment="Top" Width="18" FontSize="1.5" Click="btnBorder_Click" BorderThickness="0.5" RenderTransformOrigin="0.24,0.593" Grid.Column="2"/>
+            <Label x:Name="lblAlbum" Content="Album" HorizontalAlignment="Left" Height="18" Margin="41,10,0,0" VerticalAlignment="Top" Width="37" FontSize="3" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.343"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.054"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <TextBox x:Name="txtAlbum" HorizontalAlignment="Left" Height="6" Margin="45,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="18" FontSize="3" Text="Album" BorderThickness="0.5"/>
+            <Label x:Name="lblSong" Content="Song" HorizontalAlignment="Left" Height="18" Margin="71,10,0,0" VerticalAlignment="Top" Width="37" FontSize="3" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.343"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.054"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <TextBox x:Name="txtSong" HorizontalAlignment="Left" Height="6" Margin="75,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="3" Text="Song" BorderThickness="0.5" Grid.ColumnSpan="2"/>
         </Grid>
     </Viewbox>
 

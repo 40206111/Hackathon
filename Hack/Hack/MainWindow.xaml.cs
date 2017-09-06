@@ -23,6 +23,19 @@ namespace Hack
         public MainWindow()
         {
             InitializeComponent();
+            WindowState = WindowState.Maximized;
+            WindowStyle = WindowStyle.None;
+        }
+
+        private void btnBorder_Click(object sender, RoutedEventArgs e)
+        {
+            if (WindowStyle == WindowStyle.None)
+            {
+                WindowStyle = WindowStyle.SingleBorderWindow;
+            } else
+            {
+                WindowStyle = WindowStyle.None;
+            }
         }
     }
 }
