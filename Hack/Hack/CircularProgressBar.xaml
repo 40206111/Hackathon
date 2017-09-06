@@ -46,6 +46,7 @@
                 <Ellipse Width="20" Height="20" Stretch="Fill" Fill="Black" Opacity="0.4" Canvas.Left="79.3892626146236" Canvas.Top="90.4508497187474" />
                 <Ellipse Width="20" Height="20" Stretch="Fill" Fill="Black" Opacity="0.3" Canvas.Left="97.5528258147577" Canvas.Top="65.4508497187474" />
                 <Ellipse Width="20" Height="20" Stretch="Fill" Fill="Black" Opacity="0.2" Canvas.Left="97.5528258147577" Canvas.Top="34.5491502812526" />
+                <Ellipse Width="20" Height="20" Stretch="Fill" Fill="Black" Opacity="0.1" Canvas.Left="80" Canvas.Top="9" />
             </Canvas>
         </Grid>
     </Viewbox>

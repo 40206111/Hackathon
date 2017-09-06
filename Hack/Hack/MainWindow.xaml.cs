@@ -37,5 +37,10 @@ namespace Hack
                 WindowStyle = WindowStyle.None;
             }
         }
+
+        private void btnGo_Click(object sender, RoutedEventArgs e)
+        {
+            Loading.Visibility = Visibility.Visible;
+        }
     }
 }
