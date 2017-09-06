@@ -29,13 +29,7 @@ namespace Hack
 
         private void btnBorder_Click(object sender, RoutedEventArgs e)
         {
-            if (WindowStyle == WindowStyle.None)
-            {
-                WindowStyle = WindowStyle.SingleBorderWindow;
-            } else
-            {
-                WindowStyle = WindowStyle.None;
-            }
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void btnGo_Click(object sender, RoutedEventArgs e)

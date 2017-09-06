@@ -5,21 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hack"
         mc:Ignorable="d"
-        Title="Song Data" Height="350" Width="525" Background="Black">
+        Title="Song Data" Height="540" Width="900" Background="Black">
     <Viewbox Stretch="Uniform">
-        <Grid x:Name="theGrid" Margin="0,0,0.5,0" Width="183" Height="116" Background="White">
+        <Grid x:Name="theGrid" Margin="0,0,0.5,0" Width="220" Height="126" Background="White">
             <Label x:Name="lblArtistName" Content="Artist Name" HorizontalAlignment="Left" Height="18" Margin="6,10,0,0" VerticalAlignment="Top" Width="37" FontSize="3" RenderTransformOrigin="0.5,0.5">
             </Label>
             <TextBox x:Name="txtArtistName" HorizontalAlignment="Left" Height="6" Margin="10,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="18" FontSize="3" Text="Artist" BorderThickness="0.5"/>
-            <Button x:Name="btnBorder" Content="Toggle Border" HorizontalAlignment="Left" Height="5" Margin="155,101,0,0" VerticalAlignment="Top" Width="18" FontSize="1.5" Click="btnBorder_Click" BorderThickness="0.5" RenderTransformOrigin="0.521,0.59"/>
+            <Button x:Name="btnBorder" Content="Exit" HorizontalAlignment="Left" Height="5" Margin="192,111,0,0" VerticalAlignment="Top" Width="18" FontSize="1.5" Click="btnBorder_Click" BorderThickness="0.5" RenderTransformOrigin="0.521,0.59"/>
             <Label x:Name="lblAlbum" Content="Album" HorizontalAlignment="Left" Height="18" Margin="41,10,0,0" VerticalAlignment="Top" Width="37" FontSize="3" RenderTransformOrigin="0.5,0.5">
             </Label>
             <TextBox x:Name="txtAlbum" HorizontalAlignment="Left" Height="6" Margin="45,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="18" FontSize="3" Text="Album" BorderThickness="0.5"/>
             <Label x:Name="lblSong" Content="Song" HorizontalAlignment="Left" Height="18" Margin="71,10,0,0" VerticalAlignment="Top" Width="37" FontSize="3" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="3">
             </Label>
             <TextBox x:Name="txtSong" HorizontalAlignment="Left" Height="6" Margin="75,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="3" Text="Song" BorderThickness="0.5" Grid.ColumnSpan="3"/>
-            <local:CircularProgressBar x:Name="Loading" HorizontalAlignment="Left" Height="27" Margin="71,52,0,0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.351,0.583" Cursor="Wait" Visibility="Collapsed"/>
-            <Button x:Name="btnGo" Content="Go" HorizontalAlignment="Left" Height="10" Margin="126,18,0,0" VerticalAlignment="Top" BorderThickness="0.5" Width="10" FontSize="3" Click="btnGo_Click"/>
+            <local:CircularProgressBar x:Name="Loading" HorizontalAlignment="Left" Height="27" Margin="75,61,0,0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.351,0.583" Cursor="Wait" Visibility="Collapsed"/>
+            <Button x:Name="btnGo" Content="Go" HorizontalAlignment="Left" Height="10" Margin="192,17,0,0" VerticalAlignment="Top" BorderThickness="0.5" Width="10" FontSize="3" Click="btnGo_Click"/>
         </Grid>
     </Viewbox>
 </Window>
