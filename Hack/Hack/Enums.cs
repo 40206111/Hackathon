@@ -11,6 +11,14 @@ public enum waveform
     sawtooth
 };
 
+public enum NoteValueEnum
+{
+    Semibreve = 0,
+    Minum = 1,
+    Crotchet = 2,
+    Quaver = 3
+};
+
 namespace Hack
 {
     class Enums
