@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+enum NoteType
+{
+    whole = 0,
+    half = 1,
+    quarter = 2,
+    eighth = 3
+};
 namespace Hack
 {
     class IntervalLength
     {
-        enum NoteType
-        {
-            whole = 0,
-            half = 1,
-            quarter = 2,
-            eighth = 3
-        };
 
         int seed = 7;
 
