@@ -24,7 +24,7 @@ namespace Hack
             ChooseScale();
             scale = new int[usedScale.Length * 3];
             int lowStart = GetLowest(start);
-            for (int i = 0; i < usedScale.Length; ++i)
+            for (int i = 0; i < usedScale.Length * 3; ++i)
             {
                 scale[i] = lowStart;
                 lowStart += usedScale[Interval];
