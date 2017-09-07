@@ -37,5 +37,10 @@ namespace Hack
                 WindowStyle = WindowStyle.None;
             }
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            Player p = new Player();
+        }
     }
 }

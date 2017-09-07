@@ -10,7 +10,7 @@ namespace Hack
     {
         public static float Sine(float freq, float time)
         {
-            return (float)Math.Sin(freq * time * 2 * Math.PI);
+            return (float)Math.Sin(freq * time * 2.0f * Math.PI);
         }
     }
 }
