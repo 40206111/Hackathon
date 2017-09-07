@@ -8,7 +8,8 @@ public enum waveform
 {
     sine,
     square,
-    sawtooth
+    sawtooth,
+    triangle
 };
 
 public enum NoteValueEnum

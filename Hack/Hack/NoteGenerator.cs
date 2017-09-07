@@ -60,7 +60,23 @@ namespace Hack
             for (int i = 0; i < 44100 * duration; i++)
             {
                 // Time value for the oscilator might need tweaking
-                buff.Add(Oscillator.Sine(notes[interval], i / 44100.0f));
+                switch (form)
+                {
+                    case waveform.sine:
+                        buff.Add(Oscillator.Sine(notes[interval], i / 44100.0f));
+                        break;
+                    case waveform.sawtooth:
+                        buff.Add(Oscillator.SawTooth(notes[interval], i / 44100.0f));
+                        break;
+                    case waveform.square:
+                        buff.Add(Oscillator.Square(notes[interval], i / 44100.0f));
+                        break;
+                    case waveform.triangle:
+                        buff.Add(Oscillator.Triangle(notes[interval], i / 44100.0f));
+                        break;
+                    default:
+                        break;
+                }
             }
             return buff;
         }
