@@ -33,38 +33,55 @@ namespace Hack
         }
 
 
-        public void Go(float Fade_in, float tempo)
+        public void Go(float Fade_in, float tempo, float fade_out, float duration)
         {
-            FadeIn(Fade_in);
+            foreach(Ellipse d in doots)
+            {
+                d.Height = 100;
+                d.Opacity = 1.0f;
+            }
+
+            dots.Visibility = Visibility.Visible;
+
+            FadeIn(Fade_in, fade_out, duration);
             Bounce(tempo);
         }
 
-        private void FadeIn(float Fade_in)
+        private void FadeIn(float Fade_in, float Fade_out, float duration)
         {
-            Hide();
             float tempfade = (Fade_in / 5.0f);
             float currentfade = Fade_in + tempfade;
-            DoubleAnimation fade = new DoubleAnimation { From = 0, To = 1, Duration = new Duration(TimeSpan.FromMinutes(currentfade)) };
+            DoubleAnimation fade = new DoubleAnimation {From = 0, To = 1, Duration = new Duration(TimeSpan.FromMinutes(currentfade)), BeginTime = TimeSpan.FromMinutes(0)};
+            Storyboard sb = new Storyboard { Duration = new Duration(TimeSpan.FromMinutes(duration))};
+
+            sb.Completed += new EventHandler(animDone);
+
+            float tempf = ((duration - Fade_out) / 5.0f);
+            float currentf = (duration - Fade_out) + tempf;
+            DoubleAnimation fadeOut = new DoubleAnimation { To = 0, Duration = new Duration(TimeSpan.FromMinutes(currentf)), BeginTime = TimeSpan.FromMinutes(Fade_out) };
 
             doots.Reverse();
-
             foreach (Ellipse d in doots)
             {
                 currentfade -= tempfade;
                 fade.Duration = new Duration(TimeSpan.FromMinutes(currentfade));
-                d.BeginAnimation(Ellipse.OpacityProperty, fade);
+                Storyboard.SetTarget(fade, d);
+                Storyboard.SetTargetProperty(fade, new PropertyPath(Ellipse.OpacityProperty));
+                sb.Children.Add(fade);
+                currentf -= tempf;
+                fadeOut.Duration = new Duration(TimeSpan.FromMinutes(currentf));
+                Storyboard.SetTarget(fadeOut, d);
+                Storyboard.SetTargetProperty(fadeOut, new PropertyPath(Ellipse.OpacityProperty));
+                sb.Children.Add(fadeOut);
+                d.BeginStoryboard(sb);
             }
 
             doots.Reverse();
         }
 
-        private void Hide()
+        private void animDone(object sender, EventArgs e)
         {
-            _1.Opacity = 0.0f;
-            _2.Opacity = 0.0f;
-            _3.Opacity = 0.0f;
-            _4.Opacity = 0.0f;
-            _5.Opacity = 0.0f;
+            this.Visibility = Visibility.Hidden;
         }
 
         private void Bounce(float tempo)
