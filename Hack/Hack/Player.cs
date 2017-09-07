@@ -104,8 +104,10 @@ namespace Hack
         {
 
             // testing stuff
-            NoteGenerator n = new NoteGenerator();
-            workingBuffer = n.NoteFromA3(0, 1, waveform.sine);
+            //   NoteGenerator n = new NoteGenerator();
+            BackingTrack bt = new BackingTrack();
+            int[] testScale = new int[5] { 0, 3, 5, 7, 10 };
+            workingBuffer = bt.makeTrack(testScale, 0, 120.0f, 2);
 
             save(FilePath);
             Play();

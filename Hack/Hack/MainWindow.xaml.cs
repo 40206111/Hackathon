@@ -127,5 +127,10 @@ namespace Hack
             txtSong.IsEnabled = !txtSong.IsEnabled;
             btnGenerate.IsEnabled = !btnGenerate.IsEnabled;
         }
+
+        private void btnGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            Player p = new Player();
+        }
     }
 }
