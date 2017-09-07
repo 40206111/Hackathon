@@ -6,6 +6,16 @@
              xmlns:local="clr-namespace:Hack"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Storyboard x:Key="Test">
+            <DoubleAnimation x:Name="boop"
+                             Storyboard.TargetName="_1" 
+                             Storyboard.TargetProperty="Opacity"
+                             To="0"
+                             AutoReverse="True"/>
+        </Storyboard>
+    </UserControl.Resources>
+    
     <Grid>
         <Ellipse x:Name="_1" Width="20" Height="20" Stretch="Fill" Fill="RoyalBlue"/>
     </Grid>
