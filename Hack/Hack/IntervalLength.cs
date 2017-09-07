@@ -16,16 +16,17 @@ namespace Hack
     class IntervalLength
     {
 
-        int seed = 7;
+        int seed = 0;
 
         int currentEighth = 0;
         int totalEighths = 8;
 
         int[] noteLength = new int[] { 8, 4, 2, 1 };
-        int[] noteProbability = new int[] { 5, 5, 5, 5 };
+        int[] noteProbability = new int[] { 0, 5, 5, 5 };
 
         List<NoteType> notesInBar = new List<NoteType>();
         int[] intervalCount = new int[] { 0, 0, 0, 0 };
+        
         // Get/set the seed
         public int Seed
         {
@@ -33,8 +34,7 @@ namespace Hack
             set { seed = value; }
         }
 
-
-        public void BarNotes()
+        public List<NoteType> BarNotes()
         {
             // While more notes can fit into the bar
             while (currentEighth < totalEighths)
@@ -42,6 +42,7 @@ namespace Hack
                 // Pick a note type, and then document its existance
                 DocumentType(GetNoteType());
             }
+            return notesInBar;
         }
         // Calculates each notes probability of being played
         void CalculateProbabilitiesNormal()
@@ -63,7 +64,7 @@ namespace Hack
             }
 
             // Divide own probability by 2 times number of note occurences
-            noteProbability[(int)NoteType.half] /= intervalCount[(int)NoteType.half] * 2;
+            /*noteProbability[(int)NoteType.half] /= intervalCount[(int)NoteType.half] * 2;*/
             // Leave note type quarter unnaffected
             // Multiply own probability by 1 plus the first 90 degrees of cos upside-down (cos increases the more of this type exist)
             noteProbability[(int)NoteType.eighth] *= (int)(2.0f - Math.Cos(((float)intervalCount[(int)NoteType.eighth] * Math.PI) / (2.0f * totalEighths)));
@@ -85,6 +86,7 @@ namespace Hack
             int ratioTotal = RatioTotals();
             Random random = new Random(seed);
             float value = random.Next(0, 100);
+            seed++;
             if (value <= NoteProbability(NoteType.whole, ratioTotal))
             {
                 return NoteType.whole;
@@ -122,7 +124,7 @@ namespace Hack
         // Returns the float value representing a note's percentage bracket
         float NoteProbability(NoteType noteType, int ratioTotal)
         {
-            return ((float)CumulativeProbabilities((int)NoteType.quarter) / ratioTotal) * 100.0f;
+            return ((float)CumulativeProbabilities((int)noteType) / ratioTotal) * 100.0f;
         }
         // Adjusts data based on last note type
         void DocumentType(NoteType noteType)
