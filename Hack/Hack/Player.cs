@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
+using System.IO;
 
 namespace Hack
 {
@@ -79,12 +80,19 @@ namespace Hack
 
 
 
+
+
+
     class Player
     {
-      //  private DynamicSoundEffectInstance instance;
+        //  private DynamicSoundEffectInstance instance;
 
         private List<float> workingBuffer;
         private short[] convertedBuffer;
+
+        WaveHeader header;
+        WaveFormatChunk format;
+        WaveDataChunk data;
 
 
 
@@ -92,19 +100,60 @@ namespace Hack
         public Player()
         {
 
-
-
-
-       //     instance = new DynamicSoundEffectInstance(44100, AudioChannels.Mono);
-
-/*
-            // testing
             NoteGenerator n = new NoteGenerator();
             workingBuffer = n.NoteFromA3(0, 1, waveform.sine);
+
+            save("test.wav");
+        }
+
+
+
+        // Saves the track to a wav file. A working buffer must exist.
+        public void save(string filePath)
+        {
+            header = new WaveHeader();
+            format = new WaveFormatChunk();
+            data = new WaveDataChunk();
+
             convert();
-            instance.SubmitBuffer(convertedBuffer);
-            instance.Play();
-            */
+
+            data.shortArray = convertedBuffer;
+            // Calculate data chunk size in bytes
+            data.dwChunkSize = (uint)(data.shortArray.Length * (format.wBitsPerSample / 8));
+
+
+            FileStream f = new FileStream(filePath, FileMode.Create);
+            BinaryWriter bw = new BinaryWriter(f);
+            // Write the header
+            bw.Write(header.sGroupID.ToCharArray());
+            bw.Write(header.dwFileLength);
+            bw.Write(header.sRiffType.ToCharArray());
+
+            // Write the format chunk
+            bw.Write(format.sChunkID.ToCharArray());
+            bw.Write(format.dwChunkSize);
+            bw.Write(format.wFormatTag);
+            bw.Write(format.wChannels);
+            bw.Write(format.dwSamplesPerSec);
+            bw.Write(format.dwAvgBytesPerSec);
+            bw.Write(format.wBlockAlign);
+            bw.Write(format.wBitsPerSample);
+
+            // Write the data chunk
+            bw.Write(data.sChunkID.ToCharArray());
+            bw.Write(data.dwChunkSize);
+            foreach (short dataPoint in data.shortArray)
+            {
+                bw.Write(dataPoint);
+            }
+
+            bw.Seek(4, SeekOrigin.Begin);
+            uint filesize = (uint)bw.BaseStream.Length;
+            bw.Write(filesize - 8);
+
+            // Clean up
+            bw.Close();
+            f.Close();
         }
 
 
@@ -114,26 +163,12 @@ namespace Hack
         {
             int bufferSize = workingBuffer.Count;
             convertedBuffer = new short[bufferSize];
-            
+
             for (int i = 0; i < bufferSize; i++)
             {
                 float floatSample = MathHelper.Clamp(workingBuffer[i], -1.0f, 1.0f);
-                short shortSample = (short) (floatSample >= 0.0f ? short.MaxValue * floatSample : short.MinValue * floatSample * -1);
-
-
+                short shortSample = (short)(floatSample >= 0.0f ? short.MaxValue * floatSample : short.MinValue * floatSample * -1);
                 convertedBuffer[i] = shortSample;
-                /*
-                if (!BitConverter.IsLittleEndian)
-                {
-                    convertedBuffer[i * 2] = (byte)(shortSample >> 8);
-                    convertedBuffer[i * 2 + 1] = (byte)shortSample;
-                }
-                else
-                {
-                    convertedBuffer[i * 2] = (byte)shortSample;
-                    convertedBuffer[i * 2 + 1] = (byte)(shortSample >> 8);
-                }
-                */
             }
         }
 

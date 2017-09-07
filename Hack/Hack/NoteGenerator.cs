@@ -60,7 +60,7 @@ namespace Hack
             for (int i = 0; i < 44100 * duration; i++)
             {
                 // Time value for the oscilator might need tweaking
-                buff.Add(Oscillator.Sine(notes[interval], i / 44100));
+                buff.Add(Oscillator.Sine(notes[interval], i / 44100.0f));
             }
             return buff;
         }
