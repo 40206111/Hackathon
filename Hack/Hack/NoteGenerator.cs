@@ -9,7 +9,7 @@ namespace Hack
     class NoteGenerator
     {
         private float[] notes;
-
+        private int fadeTime = (int)(44100.0f / 1000.0f * 10.0f); // last number is fade time in miliseconds
 
 
         public NoteGenerator()
@@ -77,6 +77,13 @@ namespace Hack
                     default:
                         break;
                 }
+                
+                // fade in fade out
+                if (i < fadeTime)
+                    buff[i] *= (i / (float)fadeTime);
+                if (44100.0f * duration - i < fadeTime)
+                    buff[i] *= ((44100.0f * duration - i) / (float)fadeTime);
+                    
             }
             return buff;
         }

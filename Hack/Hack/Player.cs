@@ -89,6 +89,8 @@ namespace Hack
         //  private DynamicSoundEffectInstance instance;
 
         private List<float> workingBuffer;
+        private List<float> workingBuffer1;
+        private List<float> workingBuffer2;
         private short[] convertedBuffer;
 
         private WaveHeader header;
@@ -106,10 +108,19 @@ namespace Hack
             // testing stuff
             
             BackingTrack bt = new BackingTrack();
-            int[] testScale = new int[5] { 0, 3, 5, 7, 10 };
-            workingBuffer = bt.makeTrack(testScale, 0, 120.0f, 2, waveform.sine);
+            int[] testScale = new int[5] { 0, 2, 4, 7, 9 };
+            workingBuffer1 = bt.makeTrack(testScale, 0, 120.0f, 1, waveform.sine);
             
+            
+            Maestro m = new Maestro();
+            workingBuffer2 = m.CreateBar(waveform.sine);
+            workingBuffer2.AddRange(m.CreateBar(waveform.sine));
+            workingBuffer2.AddRange(m.CreateBar(waveform.sine));
+            workingBuffer2.AddRange(m.CreateBar(waveform.sine));
 
+            workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 1.1f, 1.0f);
+            workingBuffer = MixerClass.Normalize(workingBuffer);
+            
             // testing a scale
             /*
             KeySignature k = new KeySignature();
