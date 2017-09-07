@@ -83,8 +83,12 @@ namespace Hack
                     buff[i] *= (i / (float)fadeTime);
                 if (44100.0f * duration - i < fadeTime)
                     buff[i] *= ((44100.0f * duration - i) / (float)fadeTime);
-                    
+
             }
+
+            // test
+            buff = MixerClass.AddAttack(buff);
+
             return buff;
         }
     }
