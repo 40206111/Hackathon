@@ -67,6 +67,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="IntervalLength.cs" />
+    <Compile Include="KeySignature.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -74,6 +76,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NotePitch.cs" />
     <Compile Include="NoteGenerator.cs" />
     <Compile Include="Oscillator.cs" />
     <Compile Include="Player.cs" />
