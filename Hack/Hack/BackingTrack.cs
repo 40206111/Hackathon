@@ -8,7 +8,7 @@ namespace Hack
 {
     class BackingTrack
     {
-        public List<float> makeTrack(int[] scale, int keyIndex, float tempo, int nOfMeasures)
+        public List<float> makeTrack(int[] scale, int keyIndex, float tempo, int nOfMeasures, waveform form)
         {
             int[] wrapped;
             wrapped = getIndexes(keyIndex, scale);
@@ -18,7 +18,7 @@ namespace Hack
             Random r = new Random();
             for (int i = 0; i < 4; i++)
             {
-                measure.AddRange(ng.NoteFromA3(wrapped[r.Next(5)], (60 / tempo) * 4.0f, waveform.sine));
+                measure.AddRange(ng.NoteFromA3(wrapped[r.Next(5)], (60 / tempo) * 4.0f, form));
             }
             for (int i = 0; i < nOfMeasures; i++)
                 buffer.AddRange(measure);

@@ -104,11 +104,23 @@ namespace Hack
         {
 
             // testing stuff
-            //   NoteGenerator n = new NoteGenerator();
+            
             BackingTrack bt = new BackingTrack();
             int[] testScale = new int[5] { 0, 3, 5, 7, 10 };
-            workingBuffer = bt.makeTrack(testScale, 0, 120.0f, 2);
+            workingBuffer = bt.makeTrack(testScale, 0, 120.0f, 2, waveform.sine);
+            
 
+            // testing a scale
+            /*
+            KeySignature k = new KeySignature();
+            NoteGenerator ng = new NoteGenerator();
+            workingBuffer = new List<float>();
+            int[] scale = k.CreateScale(0, 2);
+            for (int i = 0; i < 5; i++)
+                workingBuffer.AddRange(ng.NoteFromA3(scale[i], 0.7f, waveform.sine));
+            for (int i = 4 - 1; i >= 0; i--)
+                workingBuffer.AddRange(ng.NoteFromA3(scale[i], 0.7f, waveform.sine));
+                */
             save(FilePath);
             Play();
         }
