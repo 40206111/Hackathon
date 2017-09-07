@@ -34,7 +34,13 @@ namespace Hack
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
         {
+            lstData.Visibility = Visibility.Hidden;
             Loading.Visibility = Visibility.Visible;
+            btnGo.IsEnabled = false;
+            txtArtistName.IsEnabled = false;
+            txtAlbum.IsEnabled = false;
+            txtSong.IsEnabled = false;
+            Mouse.OverrideCursor = Cursors.Wait;
         }
     }
 }
