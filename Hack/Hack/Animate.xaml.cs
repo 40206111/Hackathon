@@ -33,12 +33,18 @@ namespace Hack
         }
 
 
-        public void Go(float duration, float Fade_in)
+        public void Go(float Fade_in, float tempo)
+        {
+            FadeIn(Fade_in);
+            Bounce(tempo);
+        }
+
+        private void FadeIn(float Fade_in)
         {
             Hide();
-            float tempfade = (Fade_in/5.0f);
+            float tempfade = (Fade_in / 5.0f);
             float currentfade = Fade_in + tempfade;
-            DoubleAnimation fade = new DoubleAnimation { From = 0, To = 1, Duration = new Duration(TimeSpan.FromMinutes(currentfade))};
+            DoubleAnimation fade = new DoubleAnimation { From = 0, To = 1, Duration = new Duration(TimeSpan.FromMinutes(currentfade)) };
 
             doots.Reverse();
 
@@ -59,6 +65,19 @@ namespace Hack
             _3.Opacity = 0.0f;
             _4.Opacity = 0.0f;
             _5.Opacity = 0.0f;
+        }
+
+        private void Bounce(float tempo)
+        {
+            DoubleAnimation bounce = new DoubleAnimation { To = 150 };
+            bounce.RepeatBehavior = RepeatBehavior.Forever;
+            bounce.AutoReverse = true;
+            bounce.Duration = new Duration(TimeSpan.FromSeconds(60/tempo));
+
+            foreach (Ellipse d in doots)
+            {
+                d.BeginAnimation(Ellipse.HeightProperty, bounce);
+            }
         }
     }
 
