@@ -11,7 +11,7 @@
             <Label x:Name="lblArtistName" Content="Artist Name" HorizontalAlignment="Left" Height="18" Margin="6,10,0,0" VerticalAlignment="Top" Width="37" FontSize="3" RenderTransformOrigin="0.5,0.5">
             </Label>
             <TextBox x:Name="txtArtistName" HorizontalAlignment="Left" Height="6" Margin="10,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="18" FontSize="3" Text="Artist" BorderThickness="0.5"/>
-            <Button x:Name="btnBorder" Content="Exit" HorizontalAlignment="Left" Height="5" Margin="192,111,0,0" VerticalAlignment="Top" Width="18" FontSize="1.5" Click="btnBorder_Click" BorderThickness="0.5" RenderTransformOrigin="0.521,0.59"/>
+            <Button x:Name="btnBorder" Content="Exit" HorizontalAlignment="Left" Height="5" Margin="192,111,0,0" VerticalAlignment="Top" Width="18" FontSize="1.5" Click="btnBorder_Click" BorderThickness="0.5" RenderTransformOrigin="0.521,0.59" Cursor="Hand"/>
             <Label x:Name="lblAlbum" Content="Album" HorizontalAlignment="Left" Height="18" Margin="41,10,0,0" VerticalAlignment="Top" Width="37" FontSize="3" RenderTransformOrigin="0.5,0.5">
             </Label>
             <TextBox x:Name="txtAlbum" HorizontalAlignment="Left" Height="6" Margin="45,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="18" FontSize="3" Text="Album" BorderThickness="0.5"/>
@@ -20,6 +20,9 @@
             <TextBox x:Name="txtSong" HorizontalAlignment="Left" Height="6" Margin="75,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="3" Text="Song" BorderThickness="0.5" Grid.ColumnSpan="3"/>
             <local:CircularProgressBar x:Name="Loading" HorizontalAlignment="Left" Height="27" Margin="75,61,0,0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.351,0.583" Cursor="Wait" Visibility="Collapsed"/>
             <Button x:Name="btnGo" Content="Go" HorizontalAlignment="Left" Height="10" Margin="192,17,0,0" VerticalAlignment="Top" BorderThickness="0.5" Width="10" FontSize="3" Click="btnGo_Click"/>
+            <ListBox x:Name="lstData" HorizontalAlignment="Left" Height="71" Margin="10,45,0,0" VerticalAlignment="Top" BorderThickness="0.5" Width="163"/>
+            <Button x:Name="btnGenerate"  BorderThickness="0.5" Content="Generate" HorizontalAlignment="Left" Height="12" Margin="178,45,0,0" VerticalAlignment="Top" Width="32" FontSize="4"/>
+            <TextBlock x:Name="txtbError" HorizontalAlignment="Left" Height="7" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="111" FontSize="3" Foreground="Red"/>
         </Grid>
     </Viewbox>
 </Window>
