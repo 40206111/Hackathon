@@ -91,6 +91,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MixerClass.cs" />
+    <Compile Include="MusicNoteDescription.cs" />
     <Compile Include="NotePitch.cs" />
     <Compile Include="NoteGenerator.cs" />
     <Compile Include="Oscillator.cs" />
