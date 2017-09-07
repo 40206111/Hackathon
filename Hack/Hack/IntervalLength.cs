@@ -85,15 +85,15 @@ namespace Hack
             int ratioTotal = RatioTotals();
             Random random = new Random(seed);
             float value = random.Next(0, 100);
-            if (value < NoteProbability(NoteType.whole, ratioTotal))
+            if (value <= NoteProbability(NoteType.whole, ratioTotal))
             {
                 return NoteType.whole;
             }
-            else if (value < NoteProbability(NoteType.half, ratioTotal))
+            else if (value <= NoteProbability(NoteType.half, ratioTotal))
             {
                 return NoteType.half;
             }
-            else if (value < NoteProbability(NoteType.quarter, ratioTotal))
+            else if (value <= NoteProbability(NoteType.quarter, ratioTotal))
             {
                 return NoteType.quarter;
             }

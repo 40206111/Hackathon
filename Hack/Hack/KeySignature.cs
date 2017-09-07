@@ -8,20 +8,98 @@ namespace Hack
 {
     class KeySignature
     {
-        float[] scale = new float[21];
+        int[] scale;
         int[] majorIntervals = new int[] { 2, 2, 1, 2, 2, 2, 1 };
         int[] minorIntervals = new int[] { 2, 1, 2, 2, 1, 2, 2 };
+        int[] majPentatonicIntervals = new int[] { 2, 2, 3, 2, 3 };
+        int[] minPentatonicIntervals = new int[] { 3, 2, 2, 3, 2 };
+        int[] usedScale;
+        int interval = 0;
+        int scaleType = 0;
 
-        public void CreateScale(int start, float[] allNotes)
+
+        public int[] CreateScale(int start, int scaleType)
         {
-            int interval = 0;
-            int i = GetLowest(start);
+            this.scaleType = scaleType;
+            ChooseScale();
+            scale = new int[usedScale.Length * 3];
+            int lowStart = GetLowest(start);
+            for (int i = 0; i < usedScale.Length; ++i)
+            {
+                scale[i] = lowStart;
+                lowStart += usedScale[Interval];
+                Interval++;
+            }
+            return scale;
+        }
+
+        void ChooseScale()
+        {
+            switch (scaleType)
+            {
+                case (0):
+                    usedScale = majorIntervals;
+                    break;
+                case (1):
+                    usedScale = minorIntervals;
+                    break;
+                case (2):
+                    usedScale = majPentatonicIntervals;
+                    break;
+                case (3):
+                    usedScale = minPentatonicIntervals;
+                    break;
+                default:
+                    usedScale = majorIntervals;
+                    break;
+            }
         }
 
         int GetLowest(int start)
         {
-
+            bool flag = true;
+            while (flag)
+            {
+                if(start <= 0)
+                {
+                    flag = false;
+                }
+                else
+                {
+                    Interval--;
+                    if (start >= usedScale[Interval])
+                    {
+                        start -= usedScale[Interval];
+                    }
+                    else
+                    {
+                        Interval++;
+                        flag = false;
+                    }
+                }
+            }
             return start;
+        }
+
+        int Interval
+        {
+            get { return interval; }
+            set
+            {
+                while (value < 0)
+                {
+                    value += usedScale.Length;
+                }
+
+                if (value >= usedScale.Length)
+                {
+                    interval = value % usedScale.Length;
+                }
+                else
+                {
+                    interval = value;
+                }
+            }
         }
     }
 }
