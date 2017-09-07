@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
 using System.IO;
+using System.Media;
 
 namespace Hack
 {
@@ -90,9 +91,11 @@ namespace Hack
         private List<float> workingBuffer;
         private short[] convertedBuffer;
 
-        WaveHeader header;
-        WaveFormatChunk format;
-        WaveDataChunk data;
+        private WaveHeader header;
+        private WaveFormatChunk format;
+        private WaveDataChunk data;
+
+        public string FilePath = "test.wav";
 
 
 
@@ -100,10 +103,20 @@ namespace Hack
         public Player()
         {
 
+            // testing stuff
             NoteGenerator n = new NoteGenerator();
             workingBuffer = n.NoteFromA3(0, 1, waveform.sine);
 
-            save("test.wav");
+            save(FilePath);
+            Play();
+        }
+
+
+
+        public void Play()
+        {
+            SoundPlayer player = new SoundPlayer(FilePath);
+            player.Play();
         }
 
 
