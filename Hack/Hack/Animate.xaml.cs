@@ -21,21 +21,45 @@ namespace Hack
     /// </summary>
     public partial class Animate : UserControl
     {
+        private List<Ellipse> doots = new List<Ellipse>();
         public Animate()
         {
             InitializeComponent();
+            doots.Add(_1);
+            doots.Add(_2);
+            doots.Add(_3);
+            doots.Add(_4);
+            doots.Add(_5);
         }
+
 
         public void Go(float duration, float Fade_in)
         {
-            Storyboard sb = (this.FindResource("Test")as Storyboard);
-            sb.Duration = new Duration(TimeSpan.FromMinutes(duration));
-            DoubleAnimation da = new DoubleAnimation(247, new Duration(TimeSpan.FromMinutes(Fade_in)));
-            //sb.RepeatBehavior = new RepeatBehavior();
-            MessageBox.Show(Convert.ToString(Fade_in));
-            //sb.BeginTime = TimeSpan.FromMinutes(Fade_in);
-            da.Duration = new Duration(TimeSpan.FromMinutes(Fade_in));
-            sb.Begin();
+            Hide();
+            float tempfade = (Fade_in/5.0f);
+            float currentfade = Fade_in + tempfade;
+            DoubleAnimation fade = new DoubleAnimation { From = 0, To = 1, Duration = new Duration(TimeSpan.FromMinutes(currentfade))};
+
+            doots.Reverse();
+
+            foreach (Ellipse d in doots)
+            {
+                currentfade -= tempfade;
+                fade.Duration = new Duration(TimeSpan.FromMinutes(currentfade));
+                d.BeginAnimation(Ellipse.OpacityProperty, fade);
+            }
+
+            doots.Reverse();
+        }
+
+        private void Hide()
+        {
+            _1.Opacity = 0.0f;
+            _2.Opacity = 0.0f;
+            _3.Opacity = 0.0f;
+            _4.Opacity = 0.0f;
+            _5.Opacity = 0.0f;
         }
     }
+
 }
