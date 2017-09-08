@@ -106,7 +106,7 @@ namespace Hack
         {
 
             // testing stuff
-            /*
+            
             BackingTrack bt = new BackingTrack();
             int[] testScale = new int[5] { 0, 2, 4, 7, 9 };
             workingBuffer1 = bt.makeTrack(testScale, 0, 120.0f, 1, waveform.sine, 4.0f/4.0f);
@@ -117,8 +117,11 @@ namespace Hack
             workingBuffer2.AddRange(m.CreateBar(waveform.sine));
             workingBuffer2.AddRange(m.CreateBar(waveform.sine));
             workingBuffer2.AddRange(m.CreateBar(waveform.sine));
-            */
 
+            workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 1.0f, 1.0f);
+            workingBuffer = MixerClass.Normalize(workingBuffer);
+            
+            /*
 
             Maestro m = new Maestro();
             workingBuffer = m.CreateBar(waveform.sine);
@@ -127,7 +130,7 @@ namespace Hack
             workingBuffer.AddRange(m.CreateBar(waveform.sine));
             
             workingBuffer = MixerClass.Normalize(workingBuffer);
-            
+            */
             // testing a scale
             /*
             KeySignature k = new KeySignature();

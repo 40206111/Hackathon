@@ -87,7 +87,7 @@ namespace Hack
             }
 
             // test
-            buff = MixerClass.AddAttack(buff);
+         //   buff = MixerClass.AddAttack(buff);
 
             return buff;
         }
