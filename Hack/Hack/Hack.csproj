@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Song.cs" />
     <Page Include="Animate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -82,6 +83,7 @@
     <Compile Include="CircularProgressBar.xaml.cs">
       <DependentUpon>CircularProgressBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImportData.cs" />
     <Compile Include="IntervalLength.cs" />
     <Compile Include="KeySignature.cs" />
     <Compile Include="Enums.cs" />
