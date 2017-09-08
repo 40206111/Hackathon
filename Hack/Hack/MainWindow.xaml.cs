@@ -20,11 +20,14 @@ namespace Hack
     /// </summary>
     public partial class MainWindow : Window
     {
+        Player player;
+
         public MainWindow()
         {
             InitializeComponent();
             WindowState = WindowState.Maximized;
             WindowStyle = WindowStyle.None;
+            player = new Player();
         }
 
         private void btnBorder_Click(object sender, RoutedEventArgs e)
@@ -130,13 +133,14 @@ namespace Hack
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            Player p = new Player();
+            player.MakeMusic();
             Doots.Go(0.2f, 120, 0.2f, 0.29f);
         }
 
         private void VolumeChanged(object sender, RoutedEventArgs e)
         {
             lblVolume.Content = "Volume " + sldrVol.Value;
+            player.ChangeVolume((float)sldrVol.Value);
         }
     }
 }

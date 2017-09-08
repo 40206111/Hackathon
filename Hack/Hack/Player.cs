@@ -101,14 +101,20 @@ namespace Hack
         public string FilePath = "test.wav";
 
         SoundPlayer player;
+        SoundPlayer beep;
 
 
 
         public Player()
         {
-
             player = new SoundPlayer(FilePath);
+            beep = new SoundPlayer("volume.wav");
+        }
 
+
+
+        public void MakeMusic()
+        {
             int keyIndex = 0;
             float tempo = 120;
             int phraseCount = 2;
@@ -118,8 +124,8 @@ namespace Hack
             BackingTrack bt = new BackingTrack();
             int[] testScale = new int[5] { 0, 2, 4, 7, 9 };
             workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine, 1.0f);
-            
-            
+
+
             Maestro m = new Maestro(keyIndex, scaleType, tempo);
             workingBuffer2 = m.CreateTrack(phraseCount, waveform.sine);
 
@@ -146,14 +152,15 @@ namespace Hack
 
 
 
-        public void testVolume(float volume)
+        public void ChangeVolume(float volume)
         {
-            SoundPlayer tester = new SoundPlayer("volume.wav");
+            volume *= volume * volume;
+
             NoteGenerator tng = new NoteGenerator();
             this.volume = volume;
-            workingBuffer = tng.NoteFromA3(0, 0.3f, waveform.sine);
+            workingBuffer = tng.NoteFromA3(13, 0.3f, waveform.sine);
             save("volume.wav");
-            tester.Play();
+            beep.Play();
         }
 
 
