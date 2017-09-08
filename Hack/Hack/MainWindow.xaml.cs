@@ -131,6 +131,12 @@ namespace Hack
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
             Player p = new Player();
+            Doots.Go(0.2f, 120, 0.2f, 0.29f);
+        }
+
+        private void VolumeChanged(object sender, RoutedEventArgs e)
+        {
+            lblVolume.Content = "Volume " + sldrVol.Value;
         }
     }
 }
