@@ -21,21 +21,81 @@ namespace Hack
     /// </summary>
     public partial class Animate : UserControl
     {
+        private List<Ellipse> doots = new List<Ellipse>();
         public Animate()
         {
             InitializeComponent();
+            doots.Add(_1);
+            doots.Add(_2);
+            doots.Add(_3);
+            doots.Add(_4);
+            doots.Add(_5);
         }
 
-        public void Go(float duration, float Fade_in)
+
+        public void Go(float Fade_in, float tempo, float fade_out, float duration)
         {
-            Storyboard sb = (this.FindResource("Test")as Storyboard);
-            sb.Duration = new Duration(TimeSpan.FromMinutes(duration));
-            DoubleAnimation da = new DoubleAnimation(247, new Duration(TimeSpan.FromMinutes(Fade_in)));
-            //sb.RepeatBehavior = new RepeatBehavior();
-            MessageBox.Show(Convert.ToString(Fade_in));
-            //sb.BeginTime = TimeSpan.FromMinutes(Fade_in);
-            da.Duration = new Duration(TimeSpan.FromMinutes(Fade_in));
-            sb.Begin();
+            foreach(Ellipse d in doots)
+            {
+                d.Height = 100;
+                d.Opacity = 1.0f;
+            }
+
+            dots.Visibility = Visibility.Visible;
+
+            FadeIn(Fade_in, fade_out, duration);
+            Bounce(tempo);
+        }
+
+        private void FadeIn(float Fade_in, float Fade_out, float duration)
+        {
+            float tempfade = (Fade_in / 5.0f);
+            float currentfade = Fade_in + tempfade;
+            DoubleAnimation fade = new DoubleAnimation {From = 0, To = 1, Duration = new Duration(TimeSpan.FromMinutes(currentfade)), BeginTime = TimeSpan.FromMinutes(0)};
+            Storyboard sb = new Storyboard { Duration = new Duration(TimeSpan.FromMinutes(duration))};
+
+            sb.Completed += new EventHandler(animDone);
+
+            float tempf = ((duration - Fade_out) / 5.0f);
+            float currentf = (duration - Fade_out) + tempf;
+            DoubleAnimation fadeOut = new DoubleAnimation { To = 0, Duration = new Duration(TimeSpan.FromMinutes(currentf)), BeginTime = TimeSpan.FromMinutes(Fade_out) };
+
+            doots.Reverse();
+            foreach (Ellipse d in doots)
+            {
+                currentfade -= tempfade;
+                fade.Duration = new Duration(TimeSpan.FromMinutes(currentfade));
+                Storyboard.SetTarget(fade, d);
+                Storyboard.SetTargetProperty(fade, new PropertyPath(Ellipse.OpacityProperty));
+                sb.Children.Add(fade);
+                currentf -= tempf;
+                fadeOut.Duration = new Duration(TimeSpan.FromMinutes(currentf));
+                Storyboard.SetTarget(fadeOut, d);
+                Storyboard.SetTargetProperty(fadeOut, new PropertyPath(Ellipse.OpacityProperty));
+                sb.Children.Add(fadeOut);
+                d.BeginStoryboard(sb);
+            }
+
+            doots.Reverse();
+        }
+
+        private void animDone(object sender, EventArgs e)
+        {
+            this.Visibility = Visibility.Hidden;
+        }
+
+        private void Bounce(float tempo)
+        {
+            DoubleAnimation bounce = new DoubleAnimation { To = 150 };
+            bounce.RepeatBehavior = RepeatBehavior.Forever;
+            bounce.AutoReverse = true;
+            bounce.Duration = new Duration(TimeSpan.FromSeconds(60/tempo));
+
+            foreach (Ellipse d in doots)
+            {
+                d.BeginAnimation(Ellipse.HeightProperty, bounce);
+            }
         }
     }
+
 }
