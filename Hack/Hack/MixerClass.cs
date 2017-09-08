@@ -72,7 +72,7 @@ namespace Hack
         public static List<float> Reverberation(List<float> buffer, float reverbIntensity)
         {
             
-            int length = (int)(44100.0f / 1000.0f * 30.0f);
+            int length = (int)(44100.0f / 1000.0f * 40.0f);
             List<float> reverbBuffer = new List<float>();
             for (int i = 0; i < buffer.Count; i++)
             {
@@ -87,9 +87,33 @@ namespace Hack
             }
 
             reverbBuffer = Mix(buffer, reverbBuffer, 1.0f, reverbIntensity);
+            reverbBuffer = Normalize(reverbBuffer);
 
                 return reverbBuffer;
         }
+
+
+
+        //Distortion
+        public static List<float> Distortion(List<float> bufferToClip, float distortionLevel)
+        {
+            //Clipping the buffer
+            for (int i = 1; i < bufferToClip.Count; i++)
+            {
+                bufferToClip[i] = bufferToClip[i] * distortionLevel;
+                if (bufferToClip[i] > 1.0f)
+                {
+                    bufferToClip[i] = 1.0f;
+                }
+                else if (bufferToClip[i] < (-1.0f))
+                {
+                    bufferToClip[i] = -1.0f;
+                }
+            }
+            return bufferToClip;
+        }
+
+
 
     }
 }
