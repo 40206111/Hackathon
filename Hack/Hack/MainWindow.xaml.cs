@@ -133,7 +133,7 @@ namespace Hack
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            player.MakeMusic();
+            player.MakeMusic(5.0f);
             Doots.Go(0.2f, 120, 0.2f, 0.29f);
         }
 

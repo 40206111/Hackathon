@@ -113,7 +113,7 @@ namespace Hack
 
 
 
-        public void MakeMusic()
+        public void MakeMusic(float seed, float tempo, int key, float timeSignature)
         {
             int keyIndex = 0;
             float tempo = 120;
@@ -123,7 +123,7 @@ namespace Hack
             KeySignature keyMaker = new KeySignature();
             BackingTrack bt = new BackingTrack();
             int[] testScale = new int[5] { 0, 2, 4, 7, 9 };
-            workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine, 1.0f);
+            workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine, 1.0f, seed);
 
 
             Maestro m = new Maestro(keyIndex, scaleType, tempo);
@@ -137,7 +137,6 @@ namespace Hack
 
             // reverb I guess
             workingBuffer = MixerClass.Reverberation(workingBuffer, 0.7f);
-
 
             save(FilePath);
             Play();
