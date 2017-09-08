@@ -49,7 +49,7 @@ namespace Hack
         private void CreateBar(waveform form)
         {
             List<NoteType> notesInBar = barMaker.BarNotes();
-            int[] pitchIndexes = pitcher.GenerateNotes(10, notesInBar.Count);
+            int[] pitchIndexes = pitcher.GenerateNotes((scale.Length*2)/3, notesInBar.Count, scale.Length);
             for (int i = 0; i < notesInBar.Count; ++i)
             {
                 float noteDuration = noteDurations[(int)notesInBar[i]];
