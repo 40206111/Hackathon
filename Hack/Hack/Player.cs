@@ -112,15 +112,24 @@ namespace Hack
             KeySignature keyMaker = new KeySignature();
             BackingTrack bt = new BackingTrack();
             int[] testScale = new int[5] { 0, 2, 4, 7, 9 };
-            workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine);
-            
+            workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine, 4.0f / 4.0f);
             
             Maestro m = new Maestro(keyIndex, scaleType, tempo);
             workingBuffer2 = m.CreateTrack(phraseCount, waveform.sine);
 
-            workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 1.1f, 1.0f);
+            workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 1.0f, 1.0f);
             workingBuffer = MixerClass.Normalize(workingBuffer);
             
+            /*
+
+            Maestro m = new Maestro();
+            workingBuffer = m.CreateBar(waveform.sine);
+            workingBuffer.AddRange(m.CreateBar(waveform.sine));
+            workingBuffer.AddRange(m.CreateBar(waveform.sine));
+            workingBuffer.AddRange(m.CreateBar(waveform.sine));
+            
+            workingBuffer = MixerClass.Normalize(workingBuffer);
+            */
             // testing a scale
             /*
             KeySignature k = new KeySignature();

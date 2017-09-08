@@ -8,20 +8,20 @@ namespace Hack
 {
     class BackingTrack
     {
-        public List<float> makeTrack(int[] scale, int keyIndex, float tempo, int nOfMeasures, waveform form)
+        public List<float> makeTrack(int[] scale, int keyIndex, float tempo, int nOf4Bars, waveform form, float timeSignature)
         {
             int[] wrapped;
             wrapped = getIndexes(keyIndex, scale, scale.Length/3);
             List<float> buffer = new List<float>();
-            List<float> measure = new List<float>();
+            List<float> fourBars = new List<float>();
             NoteGenerator ng = new NoteGenerator();
             Random r = new Random();
             for (int i = 0; i < 4; i++)
             {
-                measure.AddRange(ng.NoteFromA3(wrapped[r.Next(5)], (60 / tempo) * 4.0f, form));
+                fourBars.AddRange(ng.NoteFromA3(wrapped[r.Next(5)], (60 / tempo) * timeSignature * 4.0f, form));
             }
-            for (int i = 0; i < nOfMeasures; i++)
-                buffer.AddRange(measure);
+            for (int i = 0; i < nOf4Bars; i++)
+                buffer.AddRange(fourBars);
             return buffer;
         }
 

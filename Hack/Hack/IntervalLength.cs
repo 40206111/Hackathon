@@ -26,7 +26,7 @@ namespace Hack
 
         List<NoteType> notesInBar = new List<NoteType>();
         int[] intervalCount = new int[] { 0, 0, 0, 0 };
-        
+
         // Get/set the seed
         public int Seed
         {
@@ -34,18 +34,19 @@ namespace Hack
             set { seed = value; }
         }
 
-        public List<NoteType> BarNotes()
+        public List<NoteType> BarNotes(BarType barType)
         {
             // While more notes can fit into the bar
             while (currentEighth < totalEighths)
             {
                 // Pick a note type, and then document its existance
-                DocumentType(GetNoteType());
+                DocumentType(GetNoteType(barType));
             }
+            currentEighth = 0;
             return notesInBar;
         }
         // Calculates each notes probability of being played
-        void CalculateProbabilitiesNormal()
+        void CalculateProbabilitiesNormal(BarType barType)
         {
             // If off-beat tend heavily towards eighth notes
             if (currentEighth % 2 != 0)
@@ -57,17 +58,8 @@ namespace Hack
             }
             else
             {
-                noteProbability[(int)NoteType.whole] = 3;
-                noteProbability[(int)NoteType.half] = 4;
-                noteProbability[(int)NoteType.quarter] = 5;
-                noteProbability[(int)NoteType.eighth] = 4;
+                noteProbability = NoteByBar(barType);
             }
-
-            // Divide own probability by 2 times number of note occurences
-            /*noteProbability[(int)NoteType.half] /= intervalCount[(int)NoteType.half] * 2;*/
-            // Leave note type quarter unnaffected
-            // Multiply own probability by 1 plus the first 90 degrees of cos upside-down (cos increases the more of this type exist)
-            noteProbability[(int)NoteType.eighth] *= (int)(2.0f - Math.Cos(((float)intervalCount[(int)NoteType.eighth] * Math.PI) / (2.0f * totalEighths)));
 
             for (int i = 0; i < 4; ++i)
             {
@@ -79,10 +71,117 @@ namespace Hack
             }
 
         }
-        // Returns the note type to be played at this point in the bar
-        NoteType GetNoteType()
+        // Stores note probabilities based on bar type
+        int[] NoteByBar(BarType barType)
         {
-            CalculateProbabilitiesNormal();
+            int[] probs = new int[4];
+            switch (barType)
+            {
+                case BarType.Start:
+                    probs[(int)NoteType.whole] = 6;
+                    probs[(int)NoteType.half] = 10;
+                    probs[(int)NoteType.quarter] = 6;
+                    probs[(int)NoteType.eighth] = 2;
+                    break;
+                case BarType.End:
+                    probs[(int)NoteType.whole] = 6;
+                    probs[(int)NoteType.half] = 10;
+                    probs[(int)NoteType.quarter] = 6;
+                    probs[(int)NoteType.eighth] = 2;
+                    break;
+                case BarType.Fall:
+                case BarType.Rise:
+                    probs[(int)NoteType.whole] = 0;
+                    probs[(int)NoteType.half] = 4;
+                    probs[(int)NoteType.quarter] = 7;
+                    probs[(int)NoteType.eighth] = 9;
+                    break;
+                case BarType.EarlyPeak:
+                    if (currentEighth < totalEighths / 2)
+                    {
+                        probs[(int)NoteType.whole] = 0;
+                        probs[(int)NoteType.half] = 0;
+                        probs[(int)NoteType.quarter] = 4;
+                        probs[(int)NoteType.eighth] = 4;
+                    }
+                    else
+                    {
+                        probs[(int)NoteType.whole] = 0;
+                        probs[(int)NoteType.half] = 0;
+                        probs[(int)NoteType.quarter] = 2;
+                        probs[(int)NoteType.eighth] = 6;
+                    }
+                    break;
+                case BarType.Peak:
+                    probs[(int)NoteType.whole] = 0;
+                    probs[(int)NoteType.half] = 0;
+                    probs[(int)NoteType.quarter] = 4;
+                    probs[(int)NoteType.eighth] = 4;
+                    break;
+                case BarType.LatePeak:
+                    if (currentEighth < totalEighths / 2)
+                    {
+                        probs[(int)NoteType.whole] = 0;
+                        probs[(int)NoteType.half] = 0;
+                        probs[(int)NoteType.quarter] = 2;
+                        probs[(int)NoteType.eighth] = 6;
+                    }
+                    else
+                    {
+                        probs[(int)NoteType.whole] = 0;
+                        probs[(int)NoteType.half] = 0;
+                        probs[(int)NoteType.quarter] = 4;
+                        probs[(int)NoteType.eighth] = 4;
+                    }
+                    break;
+                case BarType.EarlyTrough:
+                    if (currentEighth < totalEighths / 2)
+                    {
+                        probs[(int)NoteType.whole] = 0;
+                        probs[(int)NoteType.half] = 0;
+                        probs[(int)NoteType.quarter] = 4;
+                        probs[(int)NoteType.eighth] = 4;
+                    }
+                    else
+                    {
+                        probs[(int)NoteType.whole] = 0;
+                        probs[(int)NoteType.half] = 0;
+                        probs[(int)NoteType.quarter] = 2;
+                        probs[(int)NoteType.eighth] = 6;
+                    }
+                    break;
+                case BarType.Trough:
+                    probs[(int)NoteType.whole] = 0;
+                    probs[(int)NoteType.half] = 0;
+                    probs[(int)NoteType.quarter] = 4;
+                    probs[(int)NoteType.eighth] = 4;
+                    break;
+                case BarType.LateTrough:
+                    if (currentEighth < totalEighths / 2)
+                    {
+                        probs[(int)NoteType.whole] = 0;
+                        probs[(int)NoteType.half] = 0;
+                        probs[(int)NoteType.quarter] = 2;
+                        probs[(int)NoteType.eighth] = 6;
+                    }
+                    else
+                    {
+                        probs[(int)NoteType.whole] = 0;
+                        probs[(int)NoteType.half] = 0;
+                        probs[(int)NoteType.quarter] = 4;
+                        probs[(int)NoteType.eighth] = 4;
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+            return probs;
+        }
+        // Returns the note type to be played at this point in the bar
+        NoteType GetNoteType(BarType barType)
+        {
+            CalculateProbabilitiesNormal(barType);
             int ratioTotal = RatioTotals();
             Random random = new Random(seed);
             float value = random.Next(0, 100);
