@@ -104,19 +104,19 @@ namespace Hack
 
         public Player()
         {
-
+            int keyIndex = 0;
+            float tempo = 120;
+            int phraseCount = 2;
+            int scaleType = 2;
             // testing stuff
-            
+            KeySignature keyMaker = new KeySignature();
             BackingTrack bt = new BackingTrack();
             int[] testScale = new int[5] { 0, 2, 4, 7, 9 };
-            workingBuffer1 = bt.makeTrack(testScale, 0, 120.0f, 1, waveform.sine);
+            workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine);
             
             
-            Maestro m = new Maestro();
-            workingBuffer2 = m.CreateBar(waveform.sine);
-            workingBuffer2.AddRange(m.CreateBar(waveform.sine));
-            workingBuffer2.AddRange(m.CreateBar(waveform.sine));
-            workingBuffer2.AddRange(m.CreateBar(waveform.sine));
+            Maestro m = new Maestro(keyIndex, scaleType, tempo);
+            workingBuffer2 = m.CreateTrack(phraseCount, waveform.sine);
 
             workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 1.1f, 1.0f);
             workingBuffer = MixerClass.Normalize(workingBuffer);
