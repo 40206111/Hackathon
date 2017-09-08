@@ -45,6 +45,7 @@ namespace Hack
         List<Structure> structure = new List<Structure>();
         Dictionary<Structure, List<BarType>> phraseStructure = new Dictionary<Structure, List<BarType>>();
         List<BarType> barTypes = new List<BarType>() { BarType.EarlyPeak, BarType.Peak, BarType.LatePeak, BarType.Rise, BarType.EarlyTrough, BarType.Trough, BarType.LateTrough, BarType.Fall };
+        int givenSeed;
 
         public Maestro(int chromaticRoot, int keyStyle, float tempo)
         {
@@ -55,8 +56,11 @@ namespace Hack
             noteDurations = NoteValues.GetDuration(tempo);
         }
 
-        public List<float> CreateTrack(int phrases, waveform form)
+        public List<float> CreateTrack(int phrases, waveform form, int seed)
         {
+            givenSeed = seed;
+            barMaker.Seed = seed;
+            pitcher.Seed = seed;
             previousNote = rootInScale;
             totalBars = phrases * 4;
             CreateStructure(phrases);
@@ -117,7 +121,7 @@ namespace Hack
 
         private List<BarType> CreatePhraseLayout()
         {
-            int seed = 0;
+            int seed = givenSeed;
             List<BarType> types = new List<BarType>();
             for (int i = 0; i < 4; ++i)
             {
