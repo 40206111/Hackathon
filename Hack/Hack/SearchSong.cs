@@ -14,7 +14,7 @@ namespace Hack
         if (!songName.Equals(""))
         {
             foreach(Song s in ImportData.songs){
-                if(s.Title.Contains(songName)){
+                if(s.Title.ToLower().Contains(songName.ToLower())){
                     resultsList.Add(s);
                 }
             }
@@ -27,7 +27,7 @@ namespace Hack
             {
                 foreach (Song s in ImportData.songs)
                 {
-                    if (s.Release.Contains(albumName))
+                    if (s.Release.ToLower().Contains(albumName.ToLower()))
                     {
                         resultsList.Add(s);
                     }
@@ -37,7 +37,7 @@ namespace Hack
             {
                 foreach (Song s in resultsList)
                 {
-                    if (!s.Release.Contains(albumName))
+                    if (!s.Release.ToLower().Contains(albumName.ToLower()))
                     {
                         resultsList.Remove(s);
                     }
@@ -52,7 +52,7 @@ namespace Hack
             {
                 foreach (Song s in ImportData.songs)
                 {
-                    if (s.Release.Contains(artistName))
+                    if (s.Release.ToLower().Contains(artistName.ToLower()))
                     {
                         resultsList.Add(s);
                     }
@@ -62,7 +62,7 @@ namespace Hack
             {
                 foreach (Song s in resultsList)
                 {
-                    if (!s.Release.Contains(albumName))
+                    if (!s.Release.ToLower().Contains(albumName.ToLower()))
                     {
                         resultsList.Remove(s);
                     }

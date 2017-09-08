@@ -40,7 +40,7 @@ namespace Hack
                 string[] a = analysisLines[i].Split(delimiterChars); //Analysis words
                 string[] c = yearLines[i].Split(delimiterChars);    //Year words
                 string[] b = methaLines[i].Split();        //Metha Words
-                Song song = new Song(float.Parse(a[3], CultureInfo.InvariantCulture), float.Parse(a[5], CultureInfo.InvariantCulture), int.Parse(a[21], CultureInfo.InvariantCulture), float.Parse(a[23], CultureInfo.InvariantCulture), int.Parse(a[24], CultureInfo.InvariantCulture), float.Parse(a[27], CultureInfo.InvariantCulture), int.Parse(a[28], CultureInfo.InvariantCulture), a[30], b[4], b[9], b[11], b[14], b[17], b[18], int.Parse(c[1], CultureInfo.InvariantCulture));
+                Song song = new Song(float.Parse(a[3], CultureInfo.InvariantCulture), float.Parse(a[5], CultureInfo.InvariantCulture), int.Parse(a[21], CultureInfo.InvariantCulture), float.Parse(a[23], CultureInfo.InvariantCulture), int.Parse(a[24], CultureInfo.InvariantCulture), float.Parse(a[27], CultureInfo.InvariantCulture), int.Parse(a[28], CultureInfo.InvariantCulture), a[30], b[5], b[10], b[12], b[15], b[18], b[19], int.Parse(c[1], CultureInfo.InvariantCulture));
                 songs.Add(song);
             }
 
