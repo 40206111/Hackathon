@@ -116,7 +116,7 @@ namespace Hack
         public void MakeMusic(float seed, float tempo, int key, float timeSignature)
         {
             int keyIndex = 0;
-            float tempo = 120;
+            //float tempo = 120;
             int phraseCount = 2;
             int scaleType = 2;
             // testing stuff
@@ -124,10 +124,9 @@ namespace Hack
             BackingTrack bt = new BackingTrack();
             int[] testScale = new int[5] { 0, 2, 4, 7, 9 };
             workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine, 1.0f, seed);
-
-
+            
             Maestro m = new Maestro(keyIndex, scaleType, tempo);
-            workingBuffer2 = m.CreateTrack(phraseCount, waveform.sine);
+            workingBuffer2 = m.CreateTrack(phraseCount, waveform.sine,(int)seed);
 
             // distortion
             workingBuffer1 = MixerClass.Distortion(workingBuffer1, 3.0f);

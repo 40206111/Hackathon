@@ -101,5 +101,17 @@ namespace Hack
                 }
             }
         }
+
+        public int FindRoot(int rootNote, int[] scale)
+        {
+            for (int i = 0; i < scale.Length; ++i)
+            {
+                if (rootNote == scale[i])
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
     }
 }

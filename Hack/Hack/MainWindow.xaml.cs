@@ -41,79 +41,37 @@ namespace Hack
             Loading.Visibility = Visibility.Visible;
             ToggeEnable();
             Mouse.OverrideCursor = Cursors.Wait;
-            int dataCollect = 0;
+            int check = 0;
 
             if(!String.IsNullOrWhiteSpace(txtArtistName.Text))
             {
-                dataCollect += 2;
+                txtArtistName.Text = "";
+                check += 1;
             }
             if (!String.IsNullOrWhiteSpace(txtAlbum.Text))
             {
-                dataCollect += 3;
+                txtAlbum.Text = "";
+                check += 1;
             }
             if (!String.IsNullOrWhiteSpace(txtSong.Text))
             {
-                dataCollect += 4;
+                txtSong.Text = "";
+                check += 1;
             }
-
-            /*Artist = 2
-             * Album = 3
-             * Song = 4
-             * All = 9
-             * Artist + Album = 5
-             * Album + song = 7
-             * Artist + song = 6
-            */
-            switch(dataCollect)
+            if (check != 3)
             {
-                case 9:
-                    //search for data based on Artist, Album and Song
-                    txtbError.Text = "";
-                    //DEBUG
-                    Console.WriteLine(txtArtistName.Text + " " + txtAlbum.Text + " " + txtSong.Text + " " + dataCollect);
-                    break;
-                case 7:
-                    //Search for data based on Album and Song
-                    txtbError.Text = "";
-                    //DEBUG
-                    Console.WriteLine(txtAlbum.Text + " " + txtSong.Text + " " + dataCollect);
-                    break;
-                case 6:
-                    //Search for data based on Artist and Song
-                    txtbError.Text = "";
-                    //DEBUG
-                    Console.WriteLine(txtArtistName.Text + " " + txtSong.Text + " " + dataCollect);
-                    break;
-                case 5:
-                    //Search for data based on Artist and Album
-                    txtbError.Text = "";
-                    //DEBUG
-                    Console.WriteLine(txtArtistName.Text + " " + txtAlbum.Text + " " + dataCollect);
-                    break;
-                case 4:
-                    //Search for data based on Song
-                    txtbError.Text = "";
-                    //DEBUG
-                    Console.WriteLine(txtSong.Text + " " + dataCollect);
-                    break;
-                case 3:
-                    //Search for data based on Album
-                    txtbError.Text = "";
-                    //DEBUG
-                    Console.WriteLine(txtAlbum.Text + " " + dataCollect);
-                    break;
-                case 2:
-                    //Search for data based on Artist
-                    txtbError.Text = "";
-                    //DEBUG
-                    Console.WriteLine(txtArtistName.Text + " " + dataCollect);
-                    break;
-                default:
-                    txtbError.Text = "All fields are empty";
-                    break;
+                //Search for data
+                //Add data to listbox
+                /*for (int i = 0; i < list.count; i++)
+                {
+                    string content = list[i].Title + " \t" + list[i].Album + " \t" + list[i].Song;
+                    lstData.Items.Insert(i, content);
+                }
+                */
+            } else
+            {
+                txtbError.Text = "All fields are empty";
             }
-
-            //Add data to listbox
 
             lstData.Visibility = Visibility.Visible;
             Loading.Visibility = Visibility.Hidden;
@@ -133,8 +91,19 @@ namespace Hack
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            player.MakeMusic(5.0f);
+            player.MakeMusic(5.0f,120.0f,0,1.0f);
             Doots.Go(0.2f, 120, 0.2f, 0.29f);
+            /*
+             * try
+             * {
+             *  int i = lstData.SelectedIndex;
+             *  Doots.Go(0.2, list[i].Tempo, 0.2 list[i].Duration);
+             *  Player p = new Player(); (or however you use the sound generationey thing)
+             * } catch (Exception e)
+             * {
+             *  txtbError.Text = "Please select a song";
+             * } 
+             */
         }
 
         private void VolumeChanged(object sender, RoutedEventArgs e)
