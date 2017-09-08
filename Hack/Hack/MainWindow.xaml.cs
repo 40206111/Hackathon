@@ -59,6 +59,12 @@ namespace Hack
             {
                 //Search for data
                 //Add data to listbox
+                /*for (int i = 0; i < list.count; i++)
+                {
+                    string content = list[i].Title + " \t" + list[i].Album + " \t" + list[i].Song;
+                    lstData.Items.Insert(i, content);
+                }
+                */
             } else
             {
                 txtbError.Text = "All fields are empty";
@@ -84,6 +90,17 @@ namespace Hack
         {
             Player p = new Player();
             Doots.Go(0.2f, 120, 0.2f, 0.29f);
+            /*
+             * try
+             * {
+             *  int i = lstData.SelectedIndex;
+             *  Doots.Go(0.2, list[i].Tempo, 0.2 list[i].Duration);
+             *  Player p = new Player(); (or however you use the sound generationey thing)
+             * } catch (Exception e)
+             * {
+             *  txtbError.Text = "Please select a song";
+             * } 
+             */
         }
 
         private void VolumeChanged(object sender, RoutedEventArgs e)
