@@ -68,5 +68,28 @@ namespace Hack
             return NormalizedBuffer;
         }
 
+        //Reverb buffer
+        public static List<float> Reverberation(List<float> buffer, float reverbIntensity)
+        {
+            
+            int length = (int)(44100.0f / 1000.0f * 30.0f);
+            List<float> reverbBuffer = new List<float>();
+            for (int i = 0; i < buffer.Count; i++)
+            {
+                if (i < length)
+                {
+                    reverbBuffer.Add(0.0f);
+                }
+                else
+                {
+                    reverbBuffer.Add(buffer[i - length]);
+                }
+            }
+
+            reverbBuffer = Mix(buffer, reverbBuffer, 1.0f, reverbIntensity);
+
+                return reverbBuffer;
+        }
+
     }
 }

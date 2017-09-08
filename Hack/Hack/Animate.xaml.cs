@@ -32,7 +32,6 @@ namespace Hack
             doots.Add(_5);
         }
 
-
         public void Go(float Fade_in, float tempo, float fade_out, float duration)
         {
             foreach(Ellipse d in doots)
@@ -44,7 +43,7 @@ namespace Hack
             dots.Visibility = Visibility.Visible;
 
             FadeIn(Fade_in, fade_out, duration);
-            Bounce(tempo);
+            Bounce(tempo, duration);
         }
 
         private void FadeIn(float Fade_in, float Fade_out, float duration)
@@ -84,16 +83,20 @@ namespace Hack
             this.Visibility = Visibility.Hidden;
         }
 
-        private void Bounce(float tempo)
+        private void Bounce(float tempo, float duration)
         {
-            DoubleAnimation bounce = new DoubleAnimation { To = 150 };
+            DoubleAnimation bounce = new DoubleAnimation { From = 100,  To = 150 };
             bounce.RepeatBehavior = RepeatBehavior.Forever;
             bounce.AutoReverse = true;
             bounce.Duration = new Duration(TimeSpan.FromSeconds(60/tempo));
+            Storyboard sb = new Storyboard { Duration = new Duration(TimeSpan.FromMinutes(duration)) };
 
             foreach (Ellipse d in doots)
             {
-                d.BeginAnimation(Ellipse.HeightProperty, bounce);
+                Storyboard.SetTarget(bounce, d);
+                Storyboard.SetTargetProperty(bounce, new PropertyPath(Ellipse.HeightProperty));
+                sb.Children.Add(bounce);
+                d.BeginStoryboard(sb);
             }
         }
     }
