@@ -59,6 +59,9 @@ namespace Hack
             {
                 //Search for data
                 //Add data to listbox
+            } else
+            {
+                txtbError.Text = "All fields are empty";
             }
 
             lstData.Visibility = Visibility.Visible;
