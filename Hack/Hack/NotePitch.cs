@@ -10,17 +10,18 @@ namespace Hack
     {
         Random rand = new Random();
         int[] pitches;
-        public int[] GenerateNotes(int startPitch, int noteCount)
+        public int[] GenerateNotes(int startPitch, int noteCount, int notesInScale)
         {
             pitches = new int[noteCount];
             int currentPitch = startPitch;
-            int variance = 3;
+            int variance = 2;
+            int arraySize = notesInScale;
             for (int i = 0; i < noteCount; ++i)
             {
                 pitches[i] = currentPitch + rand.Next(-variance, variance);
-                if (pitches[i] >= 15)
+                if (pitches[i] >= arraySize)
                 {
-                    pitches[i] = 14;
+                    pitches[i] = arraySize-1;
                 }
                 else if (pitches[i] < 0)
                 {
