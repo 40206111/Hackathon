@@ -19,10 +19,17 @@
             </Label>
             <TextBox x:Name="txtSong" HorizontalAlignment="Left" Height="6" Margin="75,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="46" FontSize="3" Text="Song" BorderThickness="0.5" Grid.ColumnSpan="3"/>
             <local:CircularProgressBar x:Name="Loading" HorizontalAlignment="Left" Height="27" Margin="75,61,0,0" VerticalAlignment="Top" Width="33" RenderTransformOrigin="0.351,0.583" Cursor="Wait" Visibility="Collapsed"/>
-            <Button x:Name="btnGo" Content="Go" HorizontalAlignment="Left" Height="10" Margin="192,17,0,0" VerticalAlignment="Top" BorderThickness="0.5" Width="10" FontSize="3" Click="btnGo_Click"/>
-            <ListBox x:Name="lstData" HorizontalAlignment="Left" Height="71" Margin="10,45,0,0" VerticalAlignment="Top" BorderThickness="0.5" Width="163"/>
+            <Button x:Name="btnGo" Content="Go" HorizontalAlignment="Left" Height="10" Margin="130,20,0,0" VerticalAlignment="Top" BorderThickness="0.5" Width="10" FontSize="3" Click="btnGo_Click"/>
+            <ListBox x:Name="lstData" HorizontalAlignment="Left" Height="71" Margin="10,45,0,0" VerticalAlignment="Top" BorderThickness="0.5" Width="156"/>
             <Button x:Name="btnGenerate"  BorderThickness="0.5" Content="Generate" HorizontalAlignment="Left" Height="12" Margin="178,45,0,0" VerticalAlignment="Top" Width="32" FontSize="4" Click="btnGenerate_Click"/>
             <TextBlock x:Name="txtbError" HorizontalAlignment="Left" Height="7" Margin="10,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="111" FontSize="3" Foreground="Red"/>
+            <Label x:Name="lblVolume" Content="Volume 1" HorizontalAlignment="Left" Height="17" Margin="166,55,0,0" VerticalAlignment="Top" Width="28" FontSize="3"/>
+            <Slider x:Name="sldrVol" HorizontalAlignment="Left" Height="18" Margin="170,66,-111,0" VerticalAlignment="Top" Width="161" Maximum="1" SmallChange="0.05" PreviewMouseLeftButtonUp="VolumeChanged" Value="1" Cursor="Hand">
+                <Slider.LayoutTransform>
+                    <ScaleTransform ScaleY="0.3" ScaleX="0.3" CenterX="15" CenterY="15"/>
+                </Slider.LayoutTransform>
+            </Slider>
+            <local:Animate x:Name="Doots" HorizontalAlignment="Left" Height="33" Margin="148,8,0,0" VerticalAlignment="Top" Width="61" Visibility="Hidden" RenderTransformOrigin="0.599,0.543"/>
         </Grid>
     </Viewbox>
 </Window>
