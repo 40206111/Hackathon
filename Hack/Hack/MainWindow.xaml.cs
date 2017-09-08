@@ -29,8 +29,8 @@ namespace Hack
             InitializeComponent();
             WindowState = WindowState.Maximized;
             WindowStyle = WindowStyle.None;
+            ImportData.SongsToDisplay(1000000);
             player = new Player();
-            ImportData.SongsToDisplay(100);
         }
 
         private void btnBorder_Click(object sender, RoutedEventArgs e)
@@ -40,13 +40,9 @@ namespace Hack
 
         private void btnGo_Click(object sender, RoutedEventArgs e)
         {
-            lstData.Visibility = Visibility.Hidden;
-            Loading.Visibility = Visibility.Visible;
-            ToggeEnable();
-            Mouse.OverrideCursor = Cursors.Wait;
             int check = 0;
 
-            if(String.IsNullOrWhiteSpace(txtArtistName.Text))
+            if (String.IsNullOrWhiteSpace(txtArtistName.Text))
             {
                 txtArtistName.Text = "";
                 check += 1;
@@ -64,6 +60,12 @@ namespace Hack
 
             if (check != 3)
             {
+                lstData.Visibility = Visibility.Hidden;
+                Loading.Visibility = Visibility.Visible;
+                ToggeEnable();
+                Mouse.OverrideCursor = Cursors.Wait;
+                lstData.Items.Clear();
+
                 //Search for data
                 list = SearchSong.Search(txtArtistName.Text, txtAlbum.Text, txtSong.Text);
                 //Add data to listbox
@@ -71,16 +73,23 @@ namespace Hack
                 {
                     string content = "Artist Name: " + list[i].ArtistName + "\nAlbum Name: " + list[i].Release + "\nSong Name: " + list[i].Title;
                     lstData.Items.Insert(i, content);
+                    Console.WriteLine(content);
                 }
-            } else
+                if (list.Count == 0)
+                {
+                    txtbError.Text = "None";
+                }
+
+                lstData.Visibility = Visibility.Visible;
+                Loading.Visibility = Visibility.Hidden;
+                ToggeEnable();
+                Mouse.OverrideCursor = null;
+            }
+            else
             {
                 txtbError.Text = "All fields are empty";
             }
 
-            lstData.Visibility = Visibility.Visible;
-            Loading.Visibility = Visibility.Hidden;
-            ToggeEnable();
-            Mouse.OverrideCursor = null;
 
         }
 
@@ -95,19 +104,18 @@ namespace Hack
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            player.MakeMusic(5.0f,120.0f,0,1.0f);
-            Doots.Go(0.2f, 120, 0.2f, 0.29f);
-            /*
-             * try
-             * {
-             *  int i = lstData.SelectedIndex;
-             *  Doots.Go(0.2, list[i].Tempo, 0.2 list[i].Duration);
-             *  Player p = new Player(); (or however you use the sound generationey thing)
-             * } catch (Exception e)
-             * {
-             *  txtbError.Text = "Please select a song";
-             * } 
-             */
+            try
+            {
+                txtbError.Text = "";
+                int i = lstData.SelectedIndex;
+                Doots.Go(0.2f, list[i].Tempo, 0.2f, list[i].Duration);
+                Player k = new Player();
+                k.MakeMusic(list[i].Tempo * list[i].Key, list[i].Tempo, list[i].Key, list[i].TimeSignature);
+            }
+            catch
+            {
+                txtbError.Text = "Please select a song";
+            }
         }
 
         private void VolumeChanged(object sender, RoutedEventArgs e)

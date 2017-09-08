@@ -129,13 +129,13 @@ namespace Hack
             workingBuffer2 = m.CreateTrack(phraseCount, waveform.sine,(int)seed);
 
             // distortion
-            workingBuffer1 = MixerClass.Distortion(workingBuffer1, 3.0f);
+         //   workingBuffer1 = MixerClass.Distortion(workingBuffer1, 3.0f);
 
-            workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 1.0f, 1.15f);
+            workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 0.7f, 1.55f);
             workingBuffer = MixerClass.Normalize(workingBuffer);
 
             // reverb I guess
-            workingBuffer = MixerClass.Reverberation(workingBuffer, 0.7f);
+       //     workingBuffer = MixerClass.Reverberation(workingBuffer, 0.7f);
 
             save(FilePath);
             Play();
