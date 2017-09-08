@@ -15,20 +15,46 @@ namespace Hack
         float tempo = 120;
         float[] noteDurations = new float[4];
         int[] scale;
+        List<float> buffer = new List<float>();
+        int key;
+        int currentBar = 0;
+        int totalBars;
 
-        public List<float> CreateBar(waveform form)
+        public Maestro(int key, int keyStyle, float tempo)
         {
-            List<float> buffer = new List<float>();
-            scale = keyMaker.CreateScale(0, 2);
+            this.key = key;
+            this.tempo = tempo;
+            scale = keyMaker.CreateScale(key, keyStyle);
             noteDurations = NoteValues.GetDuration(tempo);
+        }
+
+        public List<float> CreateTrack(int phrases, waveform form)
+        {
+            totalBars = phrases * 4;
+            for (int i = 0; i < phrases; ++i)
+            {
+                CreateFour(form);
+            }
+            return buffer;
+        }
+
+        private void CreateFour(waveform form)
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                CreateBar(form);
+            }
+        }
+
+        private void CreateBar(waveform form)
+        {
             List<NoteType> notesInBar = barMaker.BarNotes();
-            int[] pitchIndexes = pitcher.GenerateNotes(10, notesInBar.Count);
+            int[] pitchIndexes = pitcher.GenerateNotes((scale.Length*2)/3, notesInBar.Count, scale.Length);
             for (int i = 0; i < notesInBar.Count; ++i)
             {
                 float noteDuration = noteDurations[(int)notesInBar[i]];
                 buffer.AddRange(noteOutput.NoteFromA3(scale[pitchIndexes[i]], noteDuration, form));
             }
-            return buffer;
         }
     }
 }

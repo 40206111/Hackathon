@@ -4,19 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hack"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <Storyboard x:Key="Test">
-            <DoubleAnimation x:Name="boop"
-                             Storyboard.TargetName="_1" 
-                             Storyboard.TargetProperty="Opacity"
-                             To="0"
-                             AutoReverse="True"/>
-        </Storyboard>
-    </UserControl.Resources>
-    
-    <Grid>
-        <Ellipse x:Name="_1" Width="20" Height="20" Stretch="Fill" Fill="RoyalBlue"/>
-    </Grid>
+             mc:Ignorable="d" Width="80"
+             Name="dots" Height="34.63" Visibility="Hidden">
+    <Viewbox Width="{Binding Width, ElementName=dots}" Height="{Binding Height, ElementName=dots}"   HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid Width="1200" Height="520">
+            <Ellipse x:Name="_1" Width="100" Height="100" Stretch="Fill" Fill="RoyalBlue" Margin="150,108,950,108"/>
+            <Ellipse x:Name="_2" Width="100" Height="100" Stretch="Fill" Fill="RoyalBlue" Margin="350,108,750,108"/>
+            <Ellipse x:Name="_3" Width="100" Height="100" Stretch="Fill" Fill="RoyalBlue" Margin="550,108,550,108"/>
+            <Ellipse x:Name="_4" Width="100" Height="100" Stretch="Fill" Fill="RoyalBlue" Margin="750,108,350,108"/>
+            <Ellipse x:Name="_5" Width="100" Height="100" Stretch="Fill" Fill="RoyalBlue" Margin="950,108,150,108"/>
+        </Grid>
+    </Viewbox>
 </UserControl>
