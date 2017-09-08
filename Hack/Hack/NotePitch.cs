@@ -9,6 +9,12 @@ namespace Hack
     class NotePitch
     {
         int seed = 0;
+        public int Seed
+        {
+            get { return seed; }
+            set { seed = value; }
+        }
+
         int[] pitches;
         public int[] GenerateNotes(BarType barType, int startPitch, int previousPitch, int noteCount, int notesInScale)
         {
