@@ -20,6 +20,7 @@ namespace Hack
     /// </summary>
     public partial class MainWindow : Window
     {
+        Player player;
 
         List<Song> list;
 
@@ -29,6 +30,7 @@ namespace Hack
             WindowState = WindowState.Maximized;
             WindowStyle = WindowStyle.None;
             ImportData.SongsToDisplay(1000000);
+            player = new Player();
         }
 
         private void btnBorder_Click(object sender, RoutedEventArgs e)
@@ -73,6 +75,10 @@ namespace Hack
                     lstData.Items.Insert(i, content);
                     Console.WriteLine(content);
                 }
+                if (list.Count == 0)
+                {
+                    txtbError.Text = "None";
+                }
 
                 lstData.Visibility = Visibility.Visible;
                 Loading.Visibility = Visibility.Hidden;
@@ -100,11 +106,12 @@ namespace Hack
         {
             try
             {
-                txtbError.Text = "Please select a song";
+                txtbError.Text = "";
                 int i = lstData.SelectedIndex;
                 Doots.Go(0.2f, list[i].Tempo, 0.2f, list[i].Duration);
                 Player k = new Player();
-              }
+                k.MakeMusic(list[i].Tempo * list[i].Key, list[i].Tempo, list[i].Key, list[i].TimeSignature);
+            }
             catch
             {
                 txtbError.Text = "Please select a song";
@@ -114,6 +121,7 @@ namespace Hack
         private void VolumeChanged(object sender, RoutedEventArgs e)
         {
             lblVolume.Content = "Volume " + sldrVol.Value;
+            player.ChangeVolume((float)sldrVol.Value);
         }
     }
 }

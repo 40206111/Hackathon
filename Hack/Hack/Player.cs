@@ -92,6 +92,7 @@ namespace Hack
         private List<float> workingBuffer1;
         private List<float> workingBuffer2;
         private short[] convertedBuffer;
+        private float volume = 1.0f;
 
         private WaveHeader header;
         private WaveFormatChunk format;
@@ -99,39 +100,43 @@ namespace Hack
 
         public string FilePath = "test.wav";
 
+        SoundPlayer player;
+        SoundPlayer beep;
 
 
 
         public Player()
         {
+            player = new SoundPlayer(FilePath);
+            beep = new SoundPlayer("volume.wav");
+        }
+
+
+
+        public void MakeMusic(float seed, float tempo, int key, float timeSignature)
+        {
             int keyIndex = 0;
-            float tempo = 120;
+            //float tempo = 120;
             int phraseCount = 2;
             int scaleType = 2;
             // testing stuff
             KeySignature keyMaker = new KeySignature();
             BackingTrack bt = new BackingTrack();
             int[] testScale = new int[5] { 0, 2, 4, 7, 9 };
-            workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine);
-            
+            workingBuffer1 = bt.makeTrack(keyMaker.CreateScale(keyIndex, scaleType), 0, tempo, phraseCount, waveform.sine, 1.0f, seed);
             
             Maestro m = new Maestro(keyIndex, scaleType, tempo);
-            workingBuffer2 = m.CreateTrack(phraseCount, waveform.sine);
+            workingBuffer2 = m.CreateTrack(phraseCount, waveform.sine,(int)seed);
 
-            workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 1.1f, 1.0f);
+            // distortion
+         //   workingBuffer1 = MixerClass.Distortion(workingBuffer1, 3.0f);
+
+            workingBuffer = MixerClass.Mix(workingBuffer1, workingBuffer2, 0.7f, 1.55f);
             workingBuffer = MixerClass.Normalize(workingBuffer);
-            
-            // testing a scale
-            /*
-            KeySignature k = new KeySignature();
-            NoteGenerator ng = new NoteGenerator();
-            workingBuffer = new List<float>();
-            int[] scale = k.CreateScale(0, 2);
-            for (int i = 0; i < 5; i++)
-                workingBuffer.AddRange(ng.NoteFromA3(scale[i], 0.7f, waveform.sine));
-            for (int i = 4 - 1; i >= 0; i--)
-                workingBuffer.AddRange(ng.NoteFromA3(scale[i], 0.7f, waveform.sine));
-                */
+
+            // reverb I guess
+       //     workingBuffer = MixerClass.Reverberation(workingBuffer, 0.7f);
+
             save(FilePath);
             Play();
         }
@@ -140,9 +145,22 @@ namespace Hack
 
         public void Play()
         {
-            SoundPlayer player = new SoundPlayer(FilePath);
             player.Play();
         }
+
+
+
+        public void ChangeVolume(float volume)
+        {
+            volume *= volume * volume;
+
+            NoteGenerator tng = new NoteGenerator();
+            this.volume = volume;
+            workingBuffer = tng.NoteFromA3(13, 0.3f, waveform.sine);
+            save("volume.wav");
+            beep.Play();
+        }
+
 
 
 
@@ -204,7 +222,7 @@ namespace Hack
 
             for (int i = 0; i < bufferSize; i++)
             {
-                float floatSample = MathHelper.Clamp(workingBuffer[i], -1.0f, 1.0f);
+                float floatSample = MathHelper.Clamp(workingBuffer[i], -1.0f, 1.0f) * volume;
                 short shortSample = (short)(floatSample >= 0.0f ? short.MaxValue * floatSample : short.MinValue * floatSample * -1);
                 convertedBuffer[i] = shortSample;
             }
