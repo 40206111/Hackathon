@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SearchSong.cs" />
     <Compile Include="Song.cs" />
     <Page Include="Animate.xaml">
       <SubType>Designer</SubType>

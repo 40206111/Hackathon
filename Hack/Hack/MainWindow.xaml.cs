@@ -20,11 +20,17 @@ namespace Hack
     /// </summary>
     public partial class MainWindow : Window
     {
+        Player player;
+
+        List<Song> list;
+
         public MainWindow()
         {
             InitializeComponent();
             WindowState = WindowState.Maximized;
             WindowStyle = WindowStyle.None;
+            player = new Player();
+            ImportData.SongsToDisplay(100);
         }
 
         private void btnBorder_Click(object sender, RoutedEventArgs e)
@@ -40,31 +46,32 @@ namespace Hack
             Mouse.OverrideCursor = Cursors.Wait;
             int check = 0;
 
-            if(!String.IsNullOrWhiteSpace(txtArtistName.Text))
+            if(String.IsNullOrWhiteSpace(txtArtistName.Text))
             {
                 txtArtistName.Text = "";
                 check += 1;
             }
-            if (!String.IsNullOrWhiteSpace(txtAlbum.Text))
+            if (String.IsNullOrWhiteSpace(txtAlbum.Text))
             {
                 txtAlbum.Text = "";
                 check += 1;
             }
-            if (!String.IsNullOrWhiteSpace(txtSong.Text))
+            if (String.IsNullOrWhiteSpace(txtSong.Text))
             {
                 txtSong.Text = "";
                 check += 1;
             }
+
             if (check != 3)
             {
                 //Search for data
+                list = SearchSong.Search(txtArtistName.Text, txtAlbum.Text, txtSong.Text);
                 //Add data to listbox
-                /*for (int i = 0; i < list.count; i++)
+                for (int i = 0; i < list.Count; i++)
                 {
-                    string content = list[i].Title + " \t" + list[i].Album + " \t" + list[i].Song;
+                    string content = "Artist Name: " + list[i].ArtistName + "\nAlbum Name: " + list[i].Release + "\nSong Name: " + list[i].Title;
                     lstData.Items.Insert(i, content);
                 }
-                */
             } else
             {
                 txtbError.Text = "All fields are empty";
@@ -88,7 +95,7 @@ namespace Hack
 
         private void btnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            Player p = new Player();
+            player.MakeMusic(5.0f,120.0f,0,1.0f);
             Doots.Go(0.2f, 120, 0.2f, 0.29f);
             /*
              * try
@@ -106,6 +113,7 @@ namespace Hack
         private void VolumeChanged(object sender, RoutedEventArgs e)
         {
             lblVolume.Content = "Volume " + sldrVol.Value;
+            player.ChangeVolume((float)sldrVol.Value);
         }
     }
 }
